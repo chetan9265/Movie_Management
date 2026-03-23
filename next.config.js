@@ -1,0 +1,1 @@
+// Firebase Storage domain whitelist
