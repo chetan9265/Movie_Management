@@ -1,2 +1,0 @@
-// uploadBytesResumable function
-// Progress callback
