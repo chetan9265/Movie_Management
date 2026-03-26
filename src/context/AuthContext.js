@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
-    router.push("/auth/login"); // ✅ Ab kaam karega
+    router.push("/"); 
   };
 
   const getToken = () => localStorage.getItem("token");
