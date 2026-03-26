@@ -10,6 +10,9 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // ✅ User logged in hai ya nahi check karo
+  const isLoggedIn = !!user && !!localStorage.getItem("token");
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
@@ -37,6 +40,7 @@ export default function Navbar() {
             className="hover:text-white">
             Movies
           </Link>
+          {/* ✅ Sirf Admin ko Admin Panel dikhao */}
           {user?.role === "admin" && (
             <Link href="/admin"
               style={{fontSize:"14px", fontWeight:500, color:"var(--accent)"}}>
@@ -47,7 +51,8 @@ export default function Navbar() {
 
         {/* Auth */}
         <div className="hidden md:flex items-center gap-3">
-          {user ? (
+          {/* ✅ Sirf logged in user ko naam aur logout dikhao */}
+          {isLoggedIn ? (
             <>
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg"
                 style={{background:"rgba(255,255,255,0.05)", border:"1px solid var(--border)"}}>
@@ -67,6 +72,7 @@ export default function Navbar() {
               </button>
             </>
           ) : (
+            // ✅ Bina login ke Login/Signup dikhao
             <>
               <Link href="/auth/login"
                 className="px-4 py-2 rounded-lg transition-all hover:text-white"
@@ -104,7 +110,7 @@ export default function Navbar() {
             <Link href="/admin" onClick={() => setMenuOpen(false)}
               style={{color:"var(--accent)", fontSize:"16px"}}>Admin Panel</Link>
           )}
-          {user ? (
+          {isLoggedIn ? (
             <button onClick={() => { logout(); setMenuOpen(false); }}
               style={{color:"var(--text-secondary)", fontSize:"16px", textAlign:"left"}}>
               Logout ({user.name})

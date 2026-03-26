@@ -10,13 +10,19 @@ export function AuthProvider({ children }) {
   const router = useRouter(); // ✅ Component ke andar rakho
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const savedUser = localStorage.getItem("user");
-    if (token && savedUser) {
+  const token = localStorage.getItem("token");
+  const savedUser = localStorage.getItem("user");
+  
+  if (token && savedUser && savedUser !== "undefined" && savedUser !== "null") {
+    try {
       setUser(JSON.parse(savedUser));
+    } catch (err) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
     }
-    setLoading(false);
-  }, []);
+  }
+  setLoading(false);
+}, []);
 
   const login = (userData, token) => {
     localStorage.setItem("token", token);
